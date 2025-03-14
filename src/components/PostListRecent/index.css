@@ -1,0 +1,133 @@
+/* 最新发布区域样式 */
+
+
+/* 区块标题和视图选项 */
+.latest-posts .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.latest-posts .section-header h2 {
+  font-size: 20px;
+  color: var(--gray-dark);
+  font-weight: 600;
+}
+
+.latest-posts .view-options {
+  display: flex;
+  gap: 8px;
+}
+
+.latest-posts .view-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.latest-posts .view-btn.active {
+  color: var(--primary-color);
+}
+
+/* 文章列表样式 */
+.latest-posts .posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.latest-posts .post-item {
+  padding: 15px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.latest-posts .post-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow);
+}
+
+.latest-posts .post-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.latest-posts .post-category {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.latest-posts .post-meta time {
+  color: var(--text-light);
+}
+
+.latest-posts .post-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.latest-posts .post-title a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.latest-posts .post-title a:hover {
+  color: var(--primary-color);
+}
+
+.latest-posts .post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.latest-posts .post-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.latest-posts .post-tags .post-tag {
+  color: var(--text-light);
+  font-size: 12px;
+  padding: 2px 8px;
+  background-color: var(--gray-light);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.latest-posts .post-tags .post-tag:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+}
+
+.latest-posts .post-stats {
+  display: flex;
+  gap: 15px;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+.latest-posts .post-stats span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 响应式设计 */
+@media (max-width: 576px) {
+  .latest-posts .post-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

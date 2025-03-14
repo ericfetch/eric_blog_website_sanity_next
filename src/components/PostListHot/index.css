@@ -1,0 +1,107 @@
+/* 热门讨论区块样式 */
+.trending-posts {
+   
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    color: var(--gray-dark);
+    font-weight: 600;
+}
+
+.more-link {
+    color: var(--text-light);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.more-link:hover {
+    color: var(--primary-color);
+}
+
+/* 文章列表样式 */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.post-item {
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.post-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow);
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.post-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.post-title a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.post-title a:hover {
+    color: var(--primary-color);
+}
+
+/* 讨论帖样式 */
+.post-item.discussion .post-type {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ff6b6b;
+}
+
+.reply-count {
+    color: var(--text-light);
+}
+
+.post-preview {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-top: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 响应式设计 */
+@media (max-width: 576px) {
+    .trending-posts {
+        padding: 15px;
+    }
+    
+    .post-meta {
+        flex-wrap: wrap;
+    }
+}
