@@ -1,0 +1,648 @@
+/* 关于页面样式 */
+
+/* 页面标题 */
+.page-title {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.page-title h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.page-title p {
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* 主要内容 */
+.about-main {
+    padding: 60px 0;
+}
+
+.section-title {
+    font-size: 28px;
+    color: var(--gray-dark);
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+/* 个人介绍 */
+.about-section {
+    margin-bottom: 80px;
+}
+
+.about-content {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-image {
+    flex: 0 0 350px;
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: var(--gray-dark);
+}
+
+.about-subtitle {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--gray-light);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-3px);
+}
+
+/* 技能与专长 */
+.skills-section {
+    margin-bottom: 80px;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.skill-category h3 {
+    font-size: 22px;
+    margin-bottom: 25px;
+    color: var(--gray-dark);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.skill-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.skill-info {
+    flex: 1;
+}
+
+.skill-info h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--gray-dark);
+}
+
+.skill-bar {
+    height: 6px;
+    background-color: var(--gray-light);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+
+/* 我的故事 */
+.story-section {
+    margin-bottom: 80px;
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 120px;
+    width: 2px;
+    background-color: var(--border-color);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 150px;
+    margin-bottom: 50px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 116px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    z-index: 1;
+}
+
+.timeline-date {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.timeline-content {
+    background-color: var(--white);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.timeline-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--gray-dark);
+}
+
+.timeline-content p {
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* 博客理念 */
+.philosophy-section {
+    margin-bottom: 80px;
+}
+
+.philosophy-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.philosophy-item {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.philosophy-item:hover {
+    transform: translateY(-5px);
+}
+
+.philosophy-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+}
+
+.philosophy-item h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: var(--gray-dark);
+}
+
+.philosophy-item p {
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* 联系方式 */
+.contact-section {
+    margin-bottom: 40px;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.contact-info p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.contact-list {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.contact-list li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-list i {
+    color: var(--primary-color);
+    font-size: 18px;
+    width: 25px;
+}
+
+.contact-list a {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.contact-list a:hover {
+    color: var(--primary-color);
+}
+
+.contact-form {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gray-dark);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image {
+        flex: 0 0 auto;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline:before {
+        left: 30px;
+    }
+
+    .timeline-item {
+        padding-left: 60px;
+    }
+
+    .timeline-date {
+        position: static;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .timeline-dot {
+        left: 26px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        padding: 40px 0;
+    }
+
+    .page-title h1 {
+        font-size: 30px;
+    }
+
+    .about-main {
+        padding: 40px 0;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .about-text h2 {
+        font-size: 28px;
+    }
+
+    .about-subtitle {
+        font-size: 16px;
+    }
+
+    .skills-container,
+    .philosophy-content {
+        grid-template-columns: 1fr;
+    }
+
+    .philosophy-item {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-title h1 {
+        font-size: 24px;
+    }
+
+    .about-image {
+        max-width: 250px;
+    }
+
+    .contact-form {
+        padding: 20px;
+    }
+
+    .social-link {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
+/* 暗色模式 */
+body.dark-mode .about-text h2,
+body.dark-mode .section-title,
+body.dark-mode .skill-category h3,
+body.dark-mode .skill-info h4,
+body.dark-mode .timeline-content h3,
+body.dark-mode .philosophy-item h3 {
+    color: var(--text-color);
+}
+
+body.dark-mode .timeline-content,
+body.dark-mode .philosophy-item,
+body.dark-mode .contact-form {
+    background-color: var(--white);
+}
+
+body.dark-mode .social-link {
+    background-color: var(--gray-dark);
+    color: var(--text-light);
+}
+
+body.dark-mode .social-link:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    background-color: var(--gray-light);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+    border-color: var(--primary-color);
+}
+
+/* 动画效果 */
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.about-content,
+.skills-container,
+.timeline-item,
+.philosophy-item {
+    animation: slideInUp 0.6s ease forwards;
+}
+
+.skills-container > *,
+.philosophy-content > * {
+    animation-delay: calc(var(--animation-order) * 0.1s);
+}
+
+/* 技能进度条动画 */
+@keyframes skillProgress {
+    from {
+        width: 0;
+    }
+    to {
+        width: var(--progress);
+    }
+}
+
+.skill-progress {
+    animation: skillProgress 1s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+/* 悬停效果 */
+.skill-item:hover .skill-icon,
+.philosophy-item:hover .philosophy-icon {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateX(5px);
+    transition: transform 0.3s ease;
+}
+
+/* 表单提交按钮 */
+.primary-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* 加载状态 */
+.form-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.form-loading:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-loading .primary-btn {
+    opacity: 0.7;
+}
+
+/* 表单验证样式 */
+.form-group.error input,
+.form-group.error textarea {
+    border-color: var(--error-color);
+}
+
+.form-group .error-message {
+    color: var(--error-color);
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+.form-group.error .error-message {
+    display: block;
+}
+
+/* 成功消息样式 */
+.success-message {
+    background-color: var(--success-color);
+    color: var(--white);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    display: none;
+}
+
+.success-message.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,38 @@
+.pageTitle {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 60px 0;
+  text-align: center;
+}
+
+.pageTitle h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.pageTitle p {
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+@media (max-width: 992px) {
+  .pageTitle {
+    padding: 40px 0;
+  }
+  
+  .pageTitle h1 {
+    font-size: 30px;
+  }
+  
+  .pageTitle p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pageTitle h1 {
+    font-size: 24px;
+  }
+} 

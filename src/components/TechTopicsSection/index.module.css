@@ -1,0 +1,25 @@
+.techTopicsSection {
+  padding: 60px 0;
+}
+
+.topicsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .topicsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .techTopicsSection {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .topicsGrid {
+    grid-template-columns: 1fr;
+  }
+} 

@@ -1,0 +1,26 @@
+.latestArticlesSection {
+  padding: 60px 0;
+  background-color: var(--bg-color);
+}
+
+.articlesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .articlesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .latestArticlesSection {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .articlesGrid {
+    grid-template-columns: 1fr;
+  }
+} 

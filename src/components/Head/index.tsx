@@ -1,6 +1,12 @@
+"use client"
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import './index.css'
+
 export default function Head() {
+    const pathname = usePathname();
+    
     return (
         <>
             <header className="header">
@@ -10,10 +16,10 @@ export default function Head() {
                     </div>
                     <nav className="main-nav">
                         <ul>
-                            <li><Link href="/" className="active">首页</Link></li>
-                            <li><Link href="/articles">文章</Link></li>
-                            <li><Link href="/categories">分类</Link></li>
-                            <li><Link href="/about">关于</Link></li>
+                            <li><Link href="/" className={pathname === "/" ? "active" : ""}>首页</Link></li>
+                            <li><Link href="/articles" className={pathname === "/articles" ? "active" : ""}>文章</Link></li>
+                            <li><Link href="/categories" className={pathname === "/categories" ? "active" : ""}>分类</Link></li>
+                            <li><Link href="/about" className={pathname === "/about" ? "active" : ""}>关于</Link></li>
                         </ul>
                     </nav>
                     <div className="nav-right">
