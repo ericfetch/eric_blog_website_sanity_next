@@ -1,0 +1,63 @@
+/* 订阅区域 */
+.subscribe-section {
+  margin: 50px 0;
+}
+
+.subscribe-container {
+  background-color: var(--primary-light);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subscribe-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.subscribe-content h2 {
+  font-size: 1.5rem;
+  color: var(--primary-dark);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.subscribe-content p {
+  color: var(--text-color);
+  margin: 0;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.subscribe-form input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+}
+
+.subscribe-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .subscribe-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .subscribe-form {
+    width: 100%;
+  }
+} 

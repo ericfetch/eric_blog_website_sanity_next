@@ -1,0 +1,197 @@
+"use client";
+
+import { useState } from 'react';
+import Link from 'next/link';
+import Header from '@/components/Head';
+import AuthInfo from '@/components/AuthInfo';
+import SocialLogin from '@/components/SocialLogin';
+import PasswordStrength from '@/components/PasswordStrength';
+import './page.css';
+
+export default function Register() {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [strengthLevel, setStrengthLevel] = useState(0);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    
+    // 简单的密码强度检测
+    let level = 0;
+    if (newPassword.length > 6) level += 1;
+    if (/[A-Z]/.test(newPassword) && /[a-z]/.test(newPassword)) level += 1;
+    if (/[0-9]/.test(newPassword) || /[^A-Za-z0-9]/.test(newPassword)) level += 1;
+    
+    setStrengthLevel(level);
+    
+    // 检查密码是否匹配
+    setPasswordsMatch(newPassword === confirmPassword || confirmPassword === '');
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+    
+    // 检查密码是否匹配
+    setPasswordsMatch(password === newConfirmPassword || newConfirmPassword === '');
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    // 提交前再次验证密码是否匹配
+    if (password !== confirmPassword) {
+      setPasswordsMatch(false);
+      return;
+    }
+    
+    // 继续表单提交逻辑
+    // ...
+  };
+
+  return (
+    <>
+      <Header />
+      
+      <main className="auth-page">
+            {/* 左侧信息区域 */}
+            <AuthInfo 
+              title="加入我们"
+              description="创建账号后即可访问更多精彩内容，参与社区讨论，记录学习进度。"
+              features={[
+                { icon: "fas fa-book-reader", text: "个性化学习路线" },
+                { icon: "fas fa-comments", text: "参与技术讨论" },
+                { icon: "fas fa-bookmark", text: "收藏喜欢的文章" }
+              ]}
+              switchText="已有账号？"
+              switchLink="/login"
+              switchBtnText="立即登录"
+            />
+
+            {/* 右侧注册表单 */}
+            <div className="auth-form">
+              <div className="form-header">
+                <h1>注册</h1>
+              </div>
+
+              {/* 社交登录 */}
+              <SocialLogin />
+
+
+              {/* 注册表单 */}
+              <form className="register-form" id="registerForm">
+                <div className="form-group">
+                  <label htmlFor="username">用户名</label>
+                  <div className="input-group">
+                    <i className="fas fa-user"></i>
+                    <input 
+                      type="text" 
+                      id="username" 
+                      name="username" 
+                      placeholder="请输入用户名"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="email">邮箱地址</label>
+                  <div className="input-group">
+                    <i className="fas fa-envelope"></i>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      placeholder="请输入邮箱地址"
+                      required
+                    />
+                  </div>
+                  <p className="input-hint">我们将发送验证邮件到此地址</p>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="password">密码</label>
+                  <div className="input-group">
+                    <i className="fas fa-lock"></i>
+                    <input 
+                      type={showPassword ? "text" : "password"} 
+                      id="password" 
+                      name="password"
+                      placeholder="请设置密码"
+                      value={password}
+                      onChange={handlePasswordChange}
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      className="toggle-password"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                    </button>
+                  </div>
+                  
+                  {/* 密码强度指示器 */}
+                  <PasswordStrength level={strengthLevel} />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="confirmPassword">确认密码</label>
+                  <div className="input-group">
+                    <i className="fas fa-lock"></i>
+                    <input 
+                      type={showConfirmPassword ? "text" : "password"} 
+                      id="confirmPassword" 
+                      name="confirmPassword"
+                      placeholder="请再次输入密码"
+                      value={confirmPassword}
+                      onChange={handleConfirmPasswordChange}
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      className="toggle-password"
+                      onClick={toggleConfirmPasswordVisibility}
+                    >
+                      <i className={`fas ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                    </button>
+                  </div>
+                  {!passwordsMatch && (
+                    <p className="error-message">两次输入的密码不一致</p>
+                  )}
+                </div>
+
+                <div className="form-agreement">
+                  <label className="agreement-checkbox">
+                    <input type="checkbox" name="agreement" required />
+                    <span>我已阅读并同意</span>
+                  </label>
+                  <Link href="/terms" className="agreement-link">服务条款</Link>
+                  <span>和</span>
+                  <Link href="/privacy" className="agreement-link">隐私政策</Link>
+                </div>
+
+                <button type="submit" className="submit-btn" onClick={(e) => handleSubmit(e as any)}>
+                  <span>创建账号</span>
+                  <i className="fas fa-arrow-right"></i>
+                </button>
+              </form>
+            </div>
+        
+      </main>
+
+    </>
+  );
+}

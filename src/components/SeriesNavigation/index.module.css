@@ -1,0 +1,89 @@
+/* 系列导航 */
+.series-navigation {
+  margin: 40px 0;
+}
+
+.series-container {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  box-shadow: var(--card-shadow);
+}
+
+.series-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.series-title {
+  font-size: 18px;
+  margin: 0;
+  color: var(--gray-dark);
+}
+
+.series-count {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.series-progress {
+  height: 6px;
+  background-color: var(--gray-light);
+  border-radius: 3px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.series-progress .progress-bar {
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+.series-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.series-article {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+  background-color: var(--gray-light);
+}
+
+.series-article:hover {
+  background-color: var(--primary-light);
+}
+
+.series-article.completed {
+  color: var(--text-light);
+}
+
+.series-article.current {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.article-number {
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.series-article.current .article-number {
+  background-color: var(--primary-color);
+  color: var(--white);
+} 

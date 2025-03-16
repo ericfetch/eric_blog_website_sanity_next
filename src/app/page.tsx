@@ -2,7 +2,7 @@ import Head from "@/components/Head";
 import PostListRecent from "@/components/PostListRecent";
 import ProjectList from "@/components/ProjectList";
 import PostListHot from "@/components/PostListHot";
-
+import Footer from "@/components/Footer";
 import './page.css'
 export default function Home() {
   return (
@@ -27,6 +27,7 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

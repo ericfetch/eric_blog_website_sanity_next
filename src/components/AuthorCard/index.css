@@ -1,0 +1,80 @@
+/* 作者卡片 */
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  margin: 30px 0;
+}
+
+.author-card .author-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary-light);
+}
+
+.author-card .author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-details {
+  flex: 1;
+}
+
+.author-card .author-name {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: var(--gray-dark);
+}
+
+.author-card .author-bio {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.author-links {
+  display: flex;
+  gap: 15px;
+}
+
+.author-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: var(--primary-color);
+}
+
+.follow-btn {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.follow-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .author-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .author-links {
+    justify-content: center;
+  }
+} 

@@ -1,0 +1,65 @@
+/* 左侧目录样式 */
+.article-toc {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 2rem;
+  height: calc(100vh - 4rem);
+  overflow-y: auto;
+  padding-right: 1rem;
+  scrollbar-width: thin;
+}
+
+.toc-container {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.toc-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  margin: 0.5rem 0;
+}
+
+.toc-list li a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: block;
+  padding: 0.25rem 0;
+  transition: color 0.2s;
+}
+
+.toc-list li a:hover {
+  color: var(--primary-color);
+}
+
+.toc-list ul {
+  list-style: none;
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 1024px) {
+  .article-toc {
+    display: none; /* 在小屏幕上隐藏左侧目录 */
+  }
+} 

@@ -1,0 +1,132 @@
+/* 分享弹窗 */
+.share-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-popup-content {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.share-popup-content h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--gray-dark);
+}
+
+.share-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.share-link {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.share-link:hover {
+  transform: translateY(-3px);
+}
+
+.share-link.twitter {
+  background-color: #1da1f2;
+}
+
+.share-link.facebook {
+  background-color: #4267b2;
+}
+
+.share-link.weibo {
+  background-color: #e6162d;
+}
+
+.share-link.linkedin {
+  background-color: #0077b5;
+}
+
+.share-copy {
+  display: flex;
+  margin-top: 15px;
+}
+
+.share-copy input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  font-size: 14px;
+}
+
+.copy-link-btn {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.copy-link-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.close-popup-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .share-links {
+    flex-direction: column;
+  }
+  
+  .share-link {
+    width: 100%;
+  }
+  
+  .share-copy {
+    flex-direction: column;
+  }
+  
+  .share-copy input {
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    margin-bottom: 0;
+  }
+  
+  .copy-link-btn {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+  }
+} 

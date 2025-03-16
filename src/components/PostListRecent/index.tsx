@@ -1,6 +1,5 @@
 import { type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
-
 const POSTS_QUERY = `*[_type == "post"]{
   ...,
   "tags": tags[]->{ 
@@ -14,7 +13,9 @@ const POSTS_QUERY = `*[_type == "post"]{
 }`;
 
 import './index.css'
+import Link from "next/link";
 export default async function PostListRecent() {
+    
     const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, { next: { revalidate: 30 } })
     console.log(posts)
     return (
@@ -33,7 +34,8 @@ export default async function PostListRecent() {
             <div className="posts-list">
                 {
                     posts.map((post) => (
-                        <article key={post._id} className="post-item">
+                        <Link href={`/article/${post._id}`} key={post._id}>
+                            <article key={post._id} className="post-item" >
                             <div className="post-meta">
                                 <span className="post-category">{post.category.title}</span>
                                 <time>{new Date(post.publishedAt).toISOString().split('T')[0]}</time>
@@ -53,6 +55,7 @@ export default async function PostListRecent() {
                                 </div>
                             </div>
                         </article>
+                        </Link>
                     ))
                 }
             </div>

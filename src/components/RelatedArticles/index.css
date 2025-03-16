@@ -1,0 +1,96 @@
+/* 相关文章 */
+.related-articles {
+  margin: 50px 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  color: var(--gray-dark);
+  margin: 0;
+  margin-right: 15px;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.related-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease;
+}
+
+.related-card:hover {
+  transform: translateY(-5px);
+}
+
+.related-thumbnail {
+  height: 180px;
+  overflow: hidden;
+}
+
+.related-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.related-card:hover .related-thumbnail img {
+  transform: scale(1.05);
+}
+
+.related-content {
+  padding: 15px;
+}
+
+.related-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.related-title a {
+  color: var(--gray-dark);
+  transition: color 0.3s ease;
+}
+
+.related-title a:hover {
+  color: var(--primary-color);
+}
+
+.related-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+@media (max-width: 992px) {
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+} 

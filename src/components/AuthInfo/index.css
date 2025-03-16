@@ -1,0 +1,90 @@
+/* 左侧信息区域 */
+.auth-info {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+}
+
+.info-content {
+    position: relative;
+    z-index: 2;
+}
+
+.info-content h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.info-content p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* 功能特点列表 */
+.features {
+    margin-bottom: 60px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.feature-item i {
+    font-size: 24px;
+    opacity: 0.9;
+}
+
+.feature-item span {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* 切换认证方式 */
+.switch-auth {
+    text-align: center;
+}
+
+.switch-auth p {
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.switch-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    border: 2px solid var(--white);
+    border-radius: 25px;
+    color: var(--white);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.switch-btn:hover {
+    background-color: var(--white);
+    color: var(--primary-color);
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .auth-info {
+        display: none;
+    }
+} 

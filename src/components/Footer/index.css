@@ -1,0 +1,136 @@
+
+/* 页脚样式 */
+.footer {
+    background-color: var(--gray-dark);
+    color: var(--white);
+    padding: 60px 0 30px;
+    position: relative;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.footer-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.footer-about p {
+    opacity: 0.7;
+    line-height: 1.7;
+}
+
+.footer-links ul,
+.footer-categories ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links a,
+.footer-categories a {
+    color: var(--white);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover,
+.footer-categories a:hover {
+    opacity: 1;
+    color: var(--primary-light);
+    transform: translateX(5px);
+}
+
+.footer-subscribe .subscribe-form {
+    margin-top: 15px;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copyright p {
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+.footer .social-links a {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+}
+
+.footer .social-links a:hover {
+    background-color: var(--primary-color);
+}
+
+.back-to-top {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.back-to-top:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    :root {
+        --container-width: 960px;
+        --sidebar-width: 280px;
+    }
+    
+    .post-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --container-width: 720px;
+    }
+    
+    .content-wrapper {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        position: static;
+    }
+    
+    .footer-top {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

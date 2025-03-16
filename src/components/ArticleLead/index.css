@@ -1,0 +1,17 @@
+/* 文章导语 */
+.article-lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--gray-light);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+}
+
+@media (max-width: 576px) {
+  .article-lead {
+    font-size: 16px;
+  }
+} 

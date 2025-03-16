@@ -6,7 +6,7 @@ export default function Head() {
             <header className="header">
                 <div className="container">
                     <div className="logo">
-                        <Link href="/">Note<span>Book</span></Link>
+                        <Link href="/">Eric<span>.wen</span></Link>
                     </div>
                     <nav className="main-nav">
                         <ul>
@@ -19,7 +19,7 @@ export default function Head() {
                     <div className="nav-right">
                         <button className="search-btn"><i className="fas fa-search"></i></button>
                         <button className="theme-toggle"><i className="fas fa-moon"></i></button>
-                        <button className="login-btn">登录</button>
+                        <button className="login-btn"><Link href="/login">登录</Link></button>
                         <button className="menu-toggle"><i className="fas fa-bars"></i></button>
                     </div>
                 </div>

@@ -1,7 +1,27 @@
 import Link from 'next/link'
+import { client } from '@/sanity/client' // 假设您已经配置了 Sanity 客户端
 
 import './index.css'
-export default function ProjectList() {
+
+interface ProjectSeries {
+    _id: string
+    title: string
+    articleCount: number
+    studyCount: number
+    progress: number
+}
+const query = `
+*[_type == "category" && (type == "project" || type == "topic")] {
+    _id,
+    title,
+    "articleCount": count(*[_type == "post" && references(^._id)]),
+
+}
+`
+export default async function ProjectList() {
+
+    const projects = await client.fetch(query)
+
     return (
         <section className="featured-series widget">
             <div className="section-header">
@@ -9,23 +29,27 @@ export default function ProjectList() {
                 <Link href="#" className="more-link">全部专栏 <i className="fas fa-chevron-right"></i></Link>
             </div>
             <div className="series-list">
-                <article className="series-item">
-                    <div className="series-info">
-                        <h3><Link href="#">TypeScript 实战指南</Link></h3>
-                        <div className="series-meta">
-                            <span>12 篇文章</span>
-                            <span>·</span>
-                            <span>328 人在学</span>
-                        </div>
-                        <div className="series-progress">
-                            <div className="progress-bar">
-                                <div className="progress" style={{ width: '75%' }}></div>
+                {projects.map((project: ProjectSeries) => (
+                    <article key={project._id} className="series-item">
+                        <div className="series-info">
+                            <h3><Link href="#">{project.title}</Link></h3>
+                            <div className="series-meta">
+                                <span>{project.articleCount} 篇文章</span>
+                                <span>·</span>
+                                <span>1人在学</span>
                             </div>
-                            <span>更新至 9/12 节</span>
+                            <div className="series-progress">
+                                <div className="progress-bar">
+                                    <div 
+                                        className="progress" 
+                                        style={{ width: `10%` }}
+                                    ></div>
+                                </div>
+                                <span>更新至 10%</span>
+                            </div>
                         </div>
-                    </div>
-                </article>
-                {/* 更多专栏... */}
+                    </article>
+                ))}
             </div>
         </section>
     )
