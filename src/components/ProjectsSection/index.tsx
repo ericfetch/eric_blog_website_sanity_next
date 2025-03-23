@@ -1,30 +1,32 @@
 import ProjectCard from '@/components/ProjectCard';
 import SectionHeader from '@/components/SectionHeader';
 import styles from './index.module.css';
+import { client } from '@/sanity/client';
 
-// 项目数据
-const projects = [
-  {
-    thumbnail: "https://via.placeholder.com/500x300",
-    badges: ["React", "Node.js", "MongoDB"],
-    title: "全栈博客系统开发",
-    description: "从零开始，使用React、Node.js和MongoDB构建一个完整的博客系统，包含用户认证、文章管理、评论系统等功能",
-    difficulty: "中级",
-    tutorialCount: 8,
-    slug: "blog-system"
-  },
-  {
-    thumbnail: "https://via.placeholder.com/500x300",
-    badges: ["Vue", "Express", "MySQL"],
-    title: "在线电商平台实现",
-    description: "使用Vue.js和Express构建一个功能完整的电商平台，包括商品展示、购物车、订单管理、支付集成等功能",
-    difficulty: "高级",
-    tutorialCount: 12,
-    slug: "ecommerce"
+export default async function ProjectsSection() {
+  // 直接进行服务器端数据获取
+  let projects = [];
+  
+  try {
+    // 获取所有类型为project的分类
+    projects = await client.fetch(`
+      *[_type == "category" && defined(type) && type == "project"] {
+        _id,
+        title,
+        "slug": _id,
+        description,
+        thumbnail,
+        difficulty,
+        badges,
+        "tutorialCount": count(*[_type == "post" && references(^._id)]),
+        "tutorials": *[_type == "post" && references(^._id)] | order(publishedAt desc)
+      }
+    `);
+  } catch (error) {
+    console.error("获取项目数据失败:", error);
+    projects = [];
   }
-];
 
-export default function ProjectsSection() {
   return (
     <section className={styles.projectsSection}>
       <div className="container">
@@ -35,18 +37,22 @@ export default function ProjectsSection() {
         />
         
         <div className={styles.projectsGrid}>
-          {projects.map((project, index) => (
-            <ProjectCard 
-              key={index}
-              thumbnail={project.thumbnail}
-              badges={project.badges}
-              title={project.title}
-              description={project.description}
-              difficulty={project.difficulty}
-              tutorialCount={project.tutorialCount}
-              slug={project.slug}
-            />
-          ))}
+          {projects.length === 0 ? (
+            <div className={styles.loading}>暂无项目数据</div>
+          ) : (
+            projects.map((project, index) => (
+              <ProjectCard 
+                key={project._id || index}
+                thumbnail={project.thumbnail}
+                badges={project.badges}
+                title={project.title.zh}
+                description={project.description}
+                difficulty={project.difficulty}
+                tutorialCount={project.tutorialCount}
+                slug={project.slug}
+              />
+            ))
+          )}
         </div>
       </div>
     </section>

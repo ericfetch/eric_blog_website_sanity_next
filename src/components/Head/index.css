@@ -102,3 +102,24 @@
         display: block;
     }
 }
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.user-info i {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.username {
+    font-weight: 500;
+}
+
+.username .highlight {
+    color: var(--primary-color, #4a90e2);
+    font-weight: 300;
+}

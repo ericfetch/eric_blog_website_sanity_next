@@ -3,10 +3,20 @@ import Header from '@/components/Head'
 import Footer from '@/components/Footer'
 import { client } from '@/sanity/client'
 
-// 从Sanity获取文章
-async function getArticles() {
+// 获取特定分类信息
+async function getCategory(categoryId: string) {
   return await client.fetch(`
-    *[_type == "post"] | order(publishedAt desc) {
+    *[_type == "category" && _id == $categoryId][0] {
+      _id,
+      title
+    }
+  `, { categoryId })
+}
+
+// 从Sanity获取特定分类的文章
+async function getArticles(categoryId: string) {
+  return await client.fetch(`
+    *[_type == "post" && category._ref == $categoryId] | order(publishedAt desc) {
       _id,
       title,
       publishedAt,
@@ -14,22 +24,24 @@ async function getArticles() {
       tags[]->{_id,title}
      
     }
-  `)
+  `, { categoryId })
 }
 
 // 将组件改为异步组件以获取数据
-export default async function Articles() {
-    const articles = await getArticles();
+export default async function CategoryArticles({ params }: { params: { id: string } }) {
+    const categoryId = params.id;
+    const category = await getCategory(categoryId);
+    const articles = await getArticles(categoryId);
     
     return (
         <div className='articles-page'>
            <Header />
            <main className='articles-main container'>
             <div className='articles-container'>
-                <h1 className='page-title'>所有文章</h1>
+                <h1 className='page-title'>{category?.title?.zh || '分类文章'}</h1>
                 <div className='articles-list'>
                     {articles.length === 0 ? (
-                      <p className='no-articles'>目前还没有文章</p>
+                      <p className='no-articles'>该分类下暂无文章</p>
                     ) : (
                       articles.map((article) => (
                         <div key={article._id} className='article-item'>

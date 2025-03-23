@@ -36,7 +36,7 @@ async function getArticle(id: string) {
     body,
    
     mainImage,
-    categories[]->{
+    category->{
       _id,
       title
     
@@ -44,7 +44,7 @@ async function getArticle(id: string) {
    
     tags[]->{
       _id,
-      name
+      title
     },
     "relatedPosts": *[_type == "post" && _id != $id && count(categories[@._ref in ^.^.categories[]._ref]) > 0][0...3]{
       _id,
@@ -75,7 +75,8 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
   
   // 获取文章数据
   const article = await getArticle(id);
-  
+  console.log(article);
+
   // 如果文章不存在，返回404
   if (!article) {
     notFound();
@@ -85,7 +86,7 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
   const defaultReadTime = 5;
   const defaultCategory = "未分类";
   const defaultAuthor = {
-    name: "匿名作者",
+    name: "Eric Wen",
     bio: "作者简介",
     image: null
   };
@@ -121,11 +122,10 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
           <div className="article-container">
             <article className="article-content">
               <ArticleHeader
-                category={article.categories?.[0]?.title || defaultCategory}
-                title={article.title || "无标题文章"}
+                category={article.category?.title?.zh || defaultCategory}
+                title={article.title?.zh || "无标题文章"}
                 author={{
                   name: article.author?.name || defaultAuthor.name,
-                  title: article.author?.bio?.substring(0, 20) || defaultAuthor.bio,
                   avatar: article.author?.image ? urlForImage(article.author.image).url() : "https://via.placeholder.com/40x40"
                 }}
                 date={article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('zh-CN', {
@@ -137,33 +137,23 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
                 views="计算中..."
               />
 
-              <ArticleLead>
-                {article.excerpt || "这篇文章暂无简介"}
-              </ArticleLead>
-
-              <ArticleContent content={article.body} />
+              <ArticleContent content={article?.body?.zh} />
 
               <ArticleTags
                 tags={(article.tags || defaultTags).map(tag => ({
-                  name: tag.name || "未命名标签",
+                  name: tag.title || "未命名标签",
                   link: `/tags/${tag.slug?.current || tag._id || "unknown"}`
                 }))}
               />
 
-              <AuthorCard
-                name={article.author?.name || defaultAuthor.name}
-                avatar={article.author?.image ? urlForImage(article.author.image).url() : "https://via.placeholder.com/80x80"}
-                bio={article.author?.bio || defaultAuthor.bio}
-                links={article.author?.socialLinks || []}
-              />
-
+            
               <ArticleNavigation
                 prev={article.prevPost ? { 
-                  title: article.prevPost.title, 
+                  title: article.prevPost.title?.zh, 
                   link: `/article/${article.prevPost._id}` 
                 } : null}
                 next={article.nextPost ? { 
-                  title: article.nextPost.title, 
+                  title: article.nextPost.title?.zh, 
                   link: `/article/${article.nextPost._id}` 
                 } : null}
               />
@@ -171,7 +161,7 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
 
             <RelatedArticles
               articles={(article.relatedPosts || defaultRelatedPosts).map(post => ({
-                title: post.title || "相关文章",
+                title: post.title.zh || "相关文章",
                 date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('zh-CN') : "未知日期",
                 readTime: `${post.readTime || defaultReadTime}分钟阅读`,
                 image: post.mainImage ? urlForImage(post.mainImage).width(300).height(180).url() : "https://via.placeholder.com/300x180",

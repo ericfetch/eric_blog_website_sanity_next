@@ -15,6 +15,10 @@ export default function Register() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [strengthLevel, setStrengthLevel] = useState(0);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
@@ -48,7 +52,15 @@ export default function Register() {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     // 提交前再次验证密码是否匹配
@@ -56,9 +68,48 @@ export default function Register() {
       setPasswordsMatch(false);
       return;
     }
+
+    // 验证表单完整性
+    if (!username || !email || !password) {
+      setError('请填写所有必填项');
+      return;
+    }
     
-    // 继续表单提交逻辑
-    // ...
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      // 调用注册API
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          email,
+          password
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || '注册失败');
+      }
+      
+      // 注册成功，可以存储token并重定向
+      // 设置cookie
+      document.cookie = `token=${data.token}; path=/; max-age=2592000`; // 30天有效期
+      
+      // 重定向到首页或用户仪表板
+      window.location.href = '/';
+      
+    } catch (err: any) {
+      setError(err.message || '注册过程中出现错误，请稍后再试');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -91,7 +142,13 @@ export default function Register() {
 
 
               {/* 注册表单 */}
-              <form className="register-form" id="registerForm">
+              <form className="register-form" id="registerForm" onSubmit={handleSubmit}>
+                {error && (
+                  <div className="error-banner">
+                    <p>{error}</p>
+                  </div>
+                )}
+                
                 <div className="form-group">
                   <label htmlFor="username">用户名</label>
                   <div className="input-group">
@@ -101,6 +158,8 @@ export default function Register() {
                       id="username" 
                       name="username" 
                       placeholder="请输入用户名"
+                      value={username}
+                      onChange={handleUsernameChange}
                       required
                     />
                   </div>
@@ -115,6 +174,8 @@ export default function Register() {
                       id="email" 
                       name="email" 
                       placeholder="请输入邮箱地址"
+                      value={email}
+                      onChange={handleEmailChange}
                       required
                     />
                   </div>
@@ -183,9 +244,19 @@ export default function Register() {
                   <Link href="/privacy" className="agreement-link">隐私政策</Link>
                 </div>
 
-                <button type="submit" className="submit-btn" onClick={(e) => handleSubmit(e as any)}>
-                  <span>创建账号</span>
-                  <i className="fas fa-arrow-right"></i>
+                <button 
+                  type="submit" 
+                  className="submit-btn" 
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <span>处理中...</span>
+                  ) : (
+                    <>
+                      <span>创建账号</span>
+                      <i className="fas fa-arrow-right"></i>
+                    </>
+                  )}
                 </button>
               </form>
             </div>

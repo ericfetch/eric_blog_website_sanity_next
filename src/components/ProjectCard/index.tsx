@@ -48,7 +48,7 @@ export default function ProjectCard({
             <i className="far fa-clock"></i> {tutorialCount}篇教程
           </span>
         </div>
-        <Link href={`/project/${slug}`} className={styles.projectLink}>
+        <Link href={`/category/${slug}`} className={styles.projectLink}>
           开始学习 <i className="fas fa-arrow-right"></i>
         </Link>
       </div>

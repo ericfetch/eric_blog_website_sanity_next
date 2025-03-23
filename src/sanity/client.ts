@@ -4,6 +4,6 @@ export const client = createClient({
   projectId: "bzt69isn",
   dataset: "production",
   apiVersion: "2025-03-13",
-  token: 'skhogvZrQWqpmuYc3bqbbDgbFRBfgWpm3ubK0uYPE3Z3S2rF4292IK0FEWXzEyQjaA4dHHrmBy57Q9UitgIqEAaxsDy1HWBe2dDDv2B6Wo5DKo5DPQDmqz96aTUQl6n1hbNtIV1HJjV01p2mKULpiIDkyJbiTCtkJgTiQj64HW7d087xjg02',
+  token: 'skxWa0ktpkfQ0cIiCZbj1TTT1StsorkZuLPozCPrgIOHdmBrW7Vhh7tybnEfh2HbZhINbNtS7D7GamR0JBHJo6GAmH3JfxTaZwnr6q1ttgK9ijLv2veFZ1GCW07VFziHcyl2g3Y7vYuIh60FQWRb3nklvUdme8vBXejhWslyBDq4EUKK0Hy7',
   useCdn: false,
 });

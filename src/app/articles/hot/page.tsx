@@ -6,12 +6,13 @@ import { client } from '@/sanity/client'
 // 从Sanity获取文章
 async function getArticles() {
   return await client.fetch(`
-    *[_type == "post"] | order(publishedAt desc) {
+    *[_type == "post"] | order(views desc) {
       _id,
       title,
       publishedAt,
       category->{_id,title},
-      tags[]->{_id,title}
+      tags[]->{_id,title},
+      views
      
     }
   `)
@@ -24,18 +25,18 @@ export default async function Articles() {
     return (
         <div className='articles-page'>
            <Header />
-           <main className='articles-main container'>
+           <main className='articles-main'>
             <div className='articles-container'>
                 <h1 className='page-title'>所有文章</h1>
                 <div className='articles-list'>
                     {articles.length === 0 ? (
                       <p className='no-articles'>目前还没有文章</p>
                     ) : (
-                      articles.map((article) => (
+                      articles.map((article: any) => (
                         <div key={article._id} className='article-item'>
                           <div className='article-item-content'>
                             <div className='article-info'>
-                              <h2>{article.title.zh}</h2>
+                              <h2>{article.title}</h2>
                               <p className='article-date'>{new Date(article.publishedAt).toLocaleDateString('zh-CN')}</p>
                             </div>
                             <div className='article-tags'>
@@ -44,7 +45,7 @@ export default async function Articles() {
                                 ))}
                             </div>
                             <div className='article-category'>
-                                {article.category && <span>{article.category.title.zh}</span>}
+                                {article.category && <span>{article.category.title}</span>}
                             </div>
                           </div>
                         </div>

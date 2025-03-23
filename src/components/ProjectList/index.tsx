@@ -26,13 +26,12 @@ export default async function ProjectList() {
         <section className="featured-series widget">
             <div className="section-header">
                 <h2>精选专栏</h2>
-                <Link href="#" className="more-link">全部专栏 <i className="fas fa-chevron-right"></i></Link>
             </div>
             <div className="series-list">
                 {projects.map((project: ProjectSeries) => (
                     <article key={project._id} className="series-item">
                         <div className="series-info">
-                            <h3><Link href="#">{project.title}</Link></h3>
+                            <h3><Link href={`/category/${project._id}`}>{project.title.zh}</Link></h3>
                             <div className="series-meta">
                                 <span>{project.articleCount} 篇文章</span>
                                 <span>·</span>

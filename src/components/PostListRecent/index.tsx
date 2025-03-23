@@ -22,30 +22,22 @@ export default async function PostListRecent() {
         <section className="latest-posts">
             <div className="section-header">
                 <h2>最新发布</h2>
-                <div className="view-options">
-                    <button className="view-btn active" data-view="compact">
-                        <i className="fas fa-list"></i>
-                    </button>
-                    <button className="view-btn" data-view="detailed">
-                        <i className="fas fa-th-large"></i>
-                    </button>
-                </div>
+                <Link href="#" className="more-link">更多 <i className="fas fa-chevron-right"></i></Link>
             </div>
             <div className="posts-list">
                 {
                     posts.map((post) => (
-                        <Link href={`/article/${post._id}`} key={post._id}>
                             <article key={post._id} className="post-item" >
                             <div className="post-meta">
-                                <span className="post-category">{post.category.title}</span>
+                               <Link href={`/category/${post.category._id}`}>{post.category.title.zh}</Link>
                                 <time>{new Date(post.publishedAt).toISOString().split('T')[0]}</time>
                             </div>
                             <h3 className="post-title">
-                                <a href="#">{post.title}</a>
+                                <Link href={`/article/${post._id}`}>{post.title.zh}</Link>
                             </h3>
                             <div className="post-info">
                                 <div className="post-tags">
-                                    {post.tags.map((tag: any) => (
+                                    {post.tags?.map((tag: any) => (
                                         <div className="post-tag" key={tag?._id}>{tag.title}</div>
                                     ))}
                                 </div>
@@ -55,7 +47,6 @@ export default async function PostListRecent() {
                                 </div>
                             </div>
                         </article>
-                        </Link>
                     ))
                 }
             </div>

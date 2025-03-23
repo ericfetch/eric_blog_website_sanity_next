@@ -47,18 +47,30 @@ export default function Login() {
         setError('');
 
         try {
-            // 这里添加登录逻辑
-            // const response = await loginUser(email, password);
+            // 发送登录请求到API
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-            // 模拟登录成功
-            setTimeout(() => {
-                setIsLoading(false);
-                router.push('/dashboard');
-            }, 1500);
+            const data = await response.json();
 
+            if (!response.ok) {
+                throw new Error(data.message || '登录失败');
+            }
+
+             // 设置cookie
+             document.cookie = `token=${data.token}; path=/; max-age=2592000`; // 30天有效期
+      
+
+            // 登录成功，重定向到仪表板
+            router.push('/');
         } catch (err) {
             setIsLoading(false);
-            setError('登录失败，请检查邮箱和密码');
+            setError(err instanceof Error ? err.message : '登录失败，请检查邮箱和密码');
             console.error('登录错误:', err);
         }
     };

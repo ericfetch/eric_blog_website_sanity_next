@@ -22,7 +22,7 @@ export default async function PostListHot() {
         <div className="trending-posts">
             <div className="section-header">
                 <h2>热门讨论</h2>
-                <Link href="#" className="more-link">更多 <i className="fas fa-chevron-right"></i></Link>
+                <Link href="/articles/hot" className="more-link">更多 <i className="fas fa-chevron-right"></i></Link>
             </div>
             <div className="posts-list">
                 {posts.map((post) => (
@@ -32,7 +32,7 @@ export default async function PostListHot() {
                             <span className="post-views">{post.views} 浏览</span>
                         </div>
                         <h3 className="post-title">
-                            <Link href="#">{post.title}</Link>
+                            <Link href="#">{post.title.zh}</Link>
                         </h3>
                         <div className="post-preview">
                             {post.excerpt}

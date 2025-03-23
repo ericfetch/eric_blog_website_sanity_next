@@ -1,7 +1,6 @@
-import './index.css';
+import styles from './index.module.css';
 interface AuthorInfo {
   name: string;
-  title: string;
   avatar: string;
 }
 
@@ -23,23 +22,21 @@ const ArticleHeader = ({
   views 
 }: ArticleHeaderProps) => {
   return (
-    <header className="article-header">
-      <div className="article-category">
+    <header className={styles.articleHeader}>
+      <div className={styles.articleCategory}>
         <a href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}>{category}</a>
       </div>
-      <h1 className="article-title">{title}</h1>
-      <div className="article-meta">
-        <div className="article-author">
-          <img src={author.avatar} alt="作者头像" />
-          <div className="author-info">
-            <a href={`/author/${author.name.toLowerCase().replace(/\s+/g, '')}`} className="author-name">{author.name}</a>
-            <span className="author-title">{author.title}</span>
+      <h1 className={styles.articleTitle}>{title}</h1>
+      <div className={styles.articleMeta}>
+        <div className={styles.articleAuthor}>
+          <div className={styles.authorInfo}>
+            <a href={`/author/${author.name.toLowerCase().replace(/\s+/g, '')}`} className={styles.authorName}>{author.name}</a>
           </div>
         </div>
-        <div className="article-info">
-          <span className="article-date"><i className="far fa-calendar"></i> {date}</span>
-          <span className="article-time"><i className="far fa-clock"></i> {readTime}</span>
-          <span className="article-views"><i className="far fa-eye"></i> {views}</span>
+        <div className={styles.articleInfo}>
+          <span className={styles.articleDate}><i className="far fa-calendar"></i> {date}</span>
+          <span className={styles.articleTime}><i className="far fa-clock"></i> {readTime}</span>
+          <span className={styles.articleViews}><i className="far fa-eye"></i> {views}</span>
         </div>
       </div>
     </header>

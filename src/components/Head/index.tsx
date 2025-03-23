@@ -2,11 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useUser from "@/hooks/useUser";
 import './index.css'
+import { useRouter } from "next/navigation";
 
 export default function Head() {
     const pathname = usePathname();
-    
+    const { user, loading, logout } = useUser();
+    const router = useRouter();
+    console.log(user);
     return (
         <>
             <header className="header">
@@ -24,8 +28,19 @@ export default function Head() {
                     </nav>
                     <div className="nav-right">
                         <button className="search-btn"><i className="fas fa-search"></i></button>
-                        <button className="theme-toggle"><i className="fas fa-moon"></i></button>
-                        <button className="login-btn"><Link href="/login">登录</Link></button>
+                        {!loading && (
+                            user ? (
+                                <>
+                                    <div className="user-info" onClick={() => router.push('/profile')}>
+                                        <i className="fas fa-user-circle"></i>
+                                        <span className="username">{user.username.split('@')[0]}<span className="highlight">.user</span></span>
+                                    </div>
+                                    <button className="logout-btn" onClick={logout}>登出</button>
+                                </>
+                            ) : (
+                                <button className="login-btn"><Link href="/login">登录</Link></button>
+                            )
+                        )}
                         <button className="menu-toggle"><i className="fas fa-bars"></i></button>
                     </div>
                 </div>

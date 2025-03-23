@@ -6,7 +6,7 @@ import { verifyToken } from '@/sanity/jwt';
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password } = await req.json();
+    const { username, email, password } = await req.json();
 
     // 检查邮箱是否已存在
     const existingUser = await client.fetch(
@@ -27,27 +27,27 @@ export async function POST(req: NextRequest) {
     // 创建新用户
     const newUser = await client.create({
       _type: 'user',
-      name,
+      username,
       email,
       password: hashedPassword,
-      role: 'user', // 默认角色
+      title: 'user', // 默认角色
     });
 
     // 创建JWT
     const token = signToken({
       id: newUser._id,
-      name: newUser.name,
+      username: newUser.username,
       email: newUser.email,
-      role: newUser.role,
+      title: newUser.title,
     });
 
     // 返回用户信息和token
     return NextResponse.json({
       user: {
         id: newUser._id,
-        name: newUser.name,
+        username: newUser.username,
         email: newUser.email,
-        role: newUser.role,
+        title: newUser.title,
       },
       token,
     });
@@ -85,9 +85,9 @@ export async function GET(req: NextRequest) {
     const user = await client.fetch(
       `*[_type == "user" && _id == $id][0]{
         _id,
-        name,
+        username,
         email,
-        role
+        title
       }`,
       { id: payload.id }
     );
@@ -103,9 +103,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       user: {
         id: user._id,
-        name: user.name,
+        username: user.username,
         email: user.email,
-        role: user.role,
+        title: user.title,
       },
     });
   } catch (error) {
