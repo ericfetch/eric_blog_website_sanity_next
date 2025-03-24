@@ -3,7 +3,7 @@ import styles from './index.module.css';
 import { 
   Home, Star, Favorite, Person, Settings, Message,
   Notifications, CalendarToday, Book, MusicNote, Movie,
-  Photo, Cloud, GetApp, Publish, Search, ArrowForward
+  Photo, Cloud, GetApp, Publish, Search,
 } from '@mui/icons-material';
 import PostBody from '../PostBody';
 
@@ -73,7 +73,7 @@ export default function TopicCard({
       <div className={styles.topicContent}>
         <PostBody content={description} />
         <div className={styles.topicArticles}>
-          {articles.map((article, index) => (
+          {articles.map((article: any, index: any) => (
             <Link 
               key={index} 
               href={`/article/${article.slug}`} 

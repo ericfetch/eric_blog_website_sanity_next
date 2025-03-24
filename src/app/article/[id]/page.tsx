@@ -1,10 +1,8 @@
 import ArticleHeader from '@/components/ArticleHeader';
 import ReadingProgress from '@/components/ReadingProgress';
 import TableOfContents from '@/components/TableOfContents';
-import ArticleLead from '@/components/ArticleLead';
 import ArticleContent from '@/components/ArticleContent';
 import ArticleTags from '@/components/ArticleTags';
-import AuthorCard from '@/components/AuthorCard';
 import ArticleNavigation from '@/components/ArticleNavigation';
 import RelatedArticles from '@/components/RelatedArticles';
 import CommentsSection from '@/components/CommentsSection';
@@ -17,14 +15,8 @@ import Head from '@/components/Head';
 import Footer from '@/components/Footer';
 import './page.css';
 import { client } from '@/sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
+import { urlForImage } from '@/sanity/imageUrl';
 import { notFound } from 'next/navigation';
-
-const builder = imageUrlBuilder(client);
-
-export function urlForImage(source: any) {
-  return builder.image(source);
-}
 
 // 添加获取文章数据的函数
 async function getArticle(id: string) {
@@ -66,12 +58,16 @@ async function getArticle(id: string) {
     }
   }`;
   
-  return client.fetch(query, { id });
+  try {
+    return await client.fetch(query, { id });
+  } catch (error) {
+    console.error("获取文章数据失败:", error);
+    return null; // 返回null而不是抛出错误，让页面组件处理
+  }
 }
 
-
-export default async function ArticlePage({params}: {params: {id: string}} ) {
-  const { id } = params;
+export default async function ArticlePage(props:any) {
+  const { id } = props.params;
   
   // 获取文章数据
   const article = await getArticle(id);
@@ -100,8 +96,8 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
   const seriesData = article.seriesInfo ? {
     title: article.seriesInfo.title,
     count: article.seriesInfo.posts?.length || 0,
-    current: article.seriesInfo.posts?.findIndex(post => post._id === id) + 1 || 1,
-    articles: article.seriesInfo.posts?.map((post, index) => ({
+    current: article.seriesInfo.posts?.findIndex((post: any) => post._id === id) + 1 || 1,
+    articles: article.seriesInfo.posts?.map((post: any, index: number) => ({
       number: index + 1,
       title: post.title,
       link: `/article/${post._id}`,
@@ -140,7 +136,7 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
               <ArticleContent content={article?.body?.zh} />
 
               <ArticleTags
-                tags={(article.tags || defaultTags).map(tag => ({
+                tags={(article.tags || defaultTags).map((tag: any) => ({
                   name: tag.title || "未命名标签",
                   link: `/tags/${tag.slug?.current || tag._id || "unknown"}`
                 }))}
@@ -151,16 +147,16 @@ export default async function ArticlePage({params}: {params: {id: string}} ) {
                 prev={article.prevPost ? { 
                   title: article.prevPost.title?.zh, 
                   link: `/article/${article.prevPost._id}` 
-                } : null}
+                } : undefined}
                 next={article.nextPost ? { 
                   title: article.nextPost.title?.zh, 
                   link: `/article/${article.nextPost._id}` 
-                } : null}
+                } : undefined}
               />
             </article>
 
             <RelatedArticles
-              articles={(article.relatedPosts || defaultRelatedPosts).map(post => ({
+              articles={(article.relatedPosts || defaultRelatedPosts).map((post: any) => ({
                 title: post.title.zh || "相关文章",
                 date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('zh-CN') : "未知日期",
                 readTime: `${post.readTime || defaultReadTime}分钟阅读`,

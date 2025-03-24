@@ -1,4 +1,5 @@
 import './index.css';
+import Image from 'next/image';
 interface Link {
   icon: string;
   url: string;
@@ -16,7 +17,7 @@ const AuthorCard = ({ name, avatar, bio, links }: AuthorCardProps) => {
   return (
     <div className="author-card">
       <div className="author-avatar">
-        <img src={avatar} alt={`${name}的头像`} />
+        <Image src={avatar} alt={`${name}的头像`} width={400} height={400} />
       </div>
       <div className="author-details">
         <h3 className="author-name">{name}</h3>

@@ -1,8 +1,25 @@
-
 import Link from 'next/link';
+import { client } from '@/sanity/client'; // 假设这是项目中已存在的 Sanity 客户端
 import './index.css';
 
-export default function Footer() {
+async function getCategories() {
+    const query = `*[_type == "category"] {
+        _id,
+        title,
+    } | order(title asc)`;
+    
+    try {
+        const categories = await client.fetch(query);
+        return categories;
+    } catch (error) {
+        console.error('获取分类错误:', error);
+        return [];
+    }
+}
+
+export default async function Footer() {
+    const categories = await getCategories();
+
     return (
         <footer className="footer">
             <div className="container">
@@ -24,11 +41,13 @@ export default function Footer() {
                     <div className="footer-categories">
                         <h3 className="footer-title">文章分类</h3>
                         <ul>
-                            <li><a href="/category/frontend">前端开发</a></li>
-                            <li><a href="/category/backend">后端开发</a></li>
-                            <li><a href="/category/algorithm">算法与数据结构</a></li>
-                            <li><a href="/category/devops">DevOps</a></li>
-                            <li><a href="/category/tools">工具与效率</a></li>
+                            {categories.map((category: any) => (
+                                <li key={category._id}>
+                                    <Link href={`/category/${category._id}`}>
+                                        {category.title.zh}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                     <div className="footer-subscribe">

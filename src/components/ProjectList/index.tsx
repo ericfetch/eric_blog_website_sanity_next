@@ -5,7 +5,7 @@ import './index.css'
 
 interface ProjectSeries {
     _id: string
-    title: string
+    title: any
     articleCount: number
     studyCount: number
     progress: number

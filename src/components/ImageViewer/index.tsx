@@ -1,5 +1,6 @@
 'use client';
 import './index.css';
+import Image from 'next/image';
 interface ImageViewerProps {
   image: string;
 }
@@ -11,7 +12,7 @@ const ImageViewer = ({ image }: ImageViewerProps) => {
     return (
         <div className="image-viewer" style={{display: 'none'}}>
             <div className="image-viewer-content">
-        <img src={image} alt="" />
+        <Image src={image} alt="" width={400} height={400} />
         <button className="close-viewer-btn" onClick={onClose}>
           <i className="fas fa-times"></i>
         </button>

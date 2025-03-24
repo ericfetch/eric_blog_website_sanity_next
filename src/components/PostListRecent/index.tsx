@@ -26,7 +26,7 @@ export default async function PostListRecent() {
             </div>
             <div className="posts-list">
                 {
-                    posts.map((post) => (
+                    posts.map((post: any) => (
                             <article key={post._id} className="post-item" >
                             <div className="post-meta">
                                <Link href={`/category/${post.category._id}`}>{post.category.title.zh}</Link>

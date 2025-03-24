@@ -1,12 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Head from '@/components/Head';
+import { client } from '@/sanity/client';
+import { urlFor } from '@/sanity/imageUrl';
 import './page.css';
+import PostBody from '@/components/PostBody';
 
 export default function AboutPage() {
+  const [userData, setUserData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,18 +19,51 @@ export default function AboutPage() {
     message: ''
   });
 
-  const handleInputChange = (e) => {
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const query = `*[_type == "profile"][0]{
+          name,
+          title,
+          introduction,
+          avatar,
+          socialLinks {
+            github,
+            twitter,
+            linkedin,
+            zhihu,
+            weibo
+          },
+          contactEmail
+        }`;
+        
+        const data = await client.fetch(query);
+        setUserData(data);
+      } catch (error) {
+        console.error('获取用户信息失败', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log('表单提交数据:', formData);
-    // 在这里可以添加表单提交逻辑
     alert('消息已发送！');
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
+
+  if (loading) {
+    return <div>加载中...</div>;
+  }
 
   return (
     <>
@@ -47,32 +85,49 @@ export default function AboutPage() {
             <div className="about-content">
               <div className="about-image">
                 <Image 
-                  src="https://via.placeholder.com/400x400" 
+                  src={urlFor(userData.avatar).width(400).height(400).url()} 
                   alt="博主照片"
                   width={400}
                   height={400}
                 />
               </div>
               <div className="about-text">
-                <h2>你好，我是张三</h2>
-                <p className="about-subtitle">全栈开发者 / 技术博主 / 开源爱好者</p>
+                <h2>你好，我是{userData.name}</h2>
+                <p className="about-subtitle">{userData.title}</p>
                 
-                <p>我是一名拥有8年经验的全栈开发者，专注于JavaScript生态系统，包括React、Node.js和相关技术。目前在一家科技公司担任高级开发工程师，负责设计和实现复杂的Web应用。</p>
-                
-                <p>除了工作，我热衷于开源社区，是几个流行JavaScript库的贡献者。我相信知识共享的力量，这也是我创建这个博客的主要原因——记录学习过程，分享技术心得，同时也希望能帮助到其他开发者。</p>
+             
+                <PostBody content={userData.introduction} />
                 
                 <div className="social-links">
-                  <a href="#" className="social-link" title="GitHub"><i className="fab fa-github"></i></a>
-                  <a href="#" className="social-link" title="Twitter"><i className="fab fa-twitter"></i></a>
-                  <a href="#" className="social-link" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
-                  <a href="#" className="social-link" title="知乎"><i className="fab fa-zhihu"></i></a>
-                  <a href="#" className="social-link" title="微博"><i className="fab fa-weibo"></i></a>
+                  {userData.socialLinks.github && (
+                    <a href={userData.socialLinks.github} className="social-link" title="GitHub">
+                      <i className="fab fa-github"></i>
+                    </a>
+                  )}
+                  {userData.socialLinks.twitter && (
+                    <a href={userData.socialLinks.twitter} className="social-link" title="Twitter">
+                      <i className="fab fa-twitter"></i>
+                    </a>
+                  )}
+                  {userData.socialLinks.linkedin && (
+                    <a href={userData.socialLinks.linkedin} className="social-link" title="LinkedIn">
+                      <i className="fab fa-linkedin"></i>
+                    </a>
+                  )}
+                  {userData.socialLinks.zhihu && (
+                    <a href={userData.socialLinks.zhihu} className="social-link" title="知乎">
+                      <i className="fab fa-zhihu"></i>
+                    </a>
+                  )}
+                  {userData.socialLinks.weibo && (
+                    <a href={userData.socialLinks.weibo} className="social-link" title="微博">
+                      <i className="fab fa-weibo"></i>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
           </section>
-
-       
 
           {/* 联系方式 */}
           <section className="contact-section">
@@ -83,9 +138,23 @@ export default function AboutPage() {
                 <p>如果你有任何问题、建议或合作意向，欢迎通过以下方式联系我：</p>
                 
                 <ul className="contact-list">
-                  <li><i className="fas fa-envelope"></i> <a href="mailto:example@example.com">example@example.com</a></li>
-                  <li><i className="fab fa-github"></i> <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">github.com/username</a></li>
-                  <li><i className="fab fa-twitter"></i> <a href="https://twitter.com/username" target="_blank" rel="noopener noreferrer">@username</a></li>
+                  <li><i className="fas fa-envelope"></i> <a href={`mailto:${userData.contactEmail}`}>{userData.contactEmail}</a></li>
+                  {userData.socialLinks.github && (
+                    <li>
+                      <i className="fab fa-github"></i> 
+                      <a href={userData.socialLinks.github} target="_blank" rel="noopener noreferrer">
+                        {userData.socialLinks.github.replace('https://', '')}
+                      </a>
+                    </li>
+                  )}
+                  {userData.socialLinks.twitter && (
+                    <li>
+                      <i className="fab fa-twitter"></i> 
+                      <a href={userData.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+                        {userData.socialLinks.twitter.replace('https://twitter.com/', '@')}
+                      </a>
+                    </li>
+                  )}
                 </ul>
                 
                 <p>你也可以通过下面的表单给我发送消息：</p>

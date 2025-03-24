@@ -1,4 +1,5 @@
 import './index.css';
+import Image from 'next/image';
 interface RelatedArticle {
   title: string;
   date: string;
@@ -22,7 +23,7 @@ const RelatedArticles = ({ articles }: RelatedArticlesProps) => {
         {articles.map((article, index) => (
           <article key={index} className="related-card">
             <div className="related-thumbnail">
-              <img src={article.image} alt={`${article.title}的缩略图`} />
+              <Image src={article.image} alt={`${article.title}的缩略图`} width={400} height={400} />
             </div>
             <div className="related-content">
               <h3 className="related-title"><a href={article.link}>{article.title}</a></h3>

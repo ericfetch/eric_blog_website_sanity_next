@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { 
   Button, 
   Card, 
@@ -24,7 +22,6 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/imageUrl';
 import PostBody from '@/components/PostBody';
 import Head from '@/components/Head';
@@ -84,7 +81,6 @@ export default function ProfilePage() {
     severity: 'success'
   });
   
-  const router = useRouter();
   
   // 获取用户数据
   useEffect(() => {
@@ -128,7 +124,7 @@ export default function ProfilePage() {
     };
     
     fetchUserData();
-  }, []);
+  });
   
   const { control, handleSubmit, formState: { errors }, reset } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -150,7 +146,6 @@ export default function ProfilePage() {
     setUpdateLoading(true);
     try {
       // 处理头像上传
-      let avatarUrl = null;
       if (avatarFile) {
         const formData = new FormData();
         formData.append('avatar', avatarFile);
@@ -164,8 +159,6 @@ export default function ProfilePage() {
           throw new Error('头像上传失败');
         }
         
-        const avatarData = await avatarResponse.json();
-        avatarUrl = avatarData.avatar.url;
       }
       
       // 更新用户资料

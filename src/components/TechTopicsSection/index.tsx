@@ -32,7 +32,7 @@ export default async function TechTopicsSection() {
   }
 
   return (
-    <section className={styles.techTopicsSection}>
+    <div className={styles.techTopicsSection}>
       <div className="container">
         <SectionHeader 
           title="技术专题" 
@@ -44,12 +44,9 @@ export default async function TechTopicsSection() {
           {topics.length === 0 ? (
             <div className={styles.loading}>暂无数据</div>
           ) : (
-            topics.map((topic, index) => (
+            topics.map((topic: any, index: any) => (
               <TopicCard 
                 key={topic._id || index}
-                icon={topic.icon}
-                iconColor={topic.iconColor}
-                bgColor={topic.bgColor}
                 title={topic.title.zh}
                 articleCount={topic.articleCount}
                 description={topic.marketBody}
@@ -60,6 +57,6 @@ export default async function TechTopicsSection() {
           )}
         </div>
       </div>
-    </section>
+    </div>
   );
 } 

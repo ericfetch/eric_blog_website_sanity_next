@@ -28,8 +28,8 @@ async function getArticles(categoryId: string) {
 }
 
 // 将组件改为异步组件以获取数据
-export default async function CategoryArticles({ params }: { params: { id: string } }) {
-    const categoryId = params.id;
+export default async function CategoryArticles(props: any) {
+    const categoryId = props.params.id;
     const category = await getCategory(categoryId);
     const articles = await getArticles(categoryId);
     
@@ -43,7 +43,7 @@ export default async function CategoryArticles({ params }: { params: { id: strin
                     {articles.length === 0 ? (
                       <p className='no-articles'>该分类下暂无文章</p>
                     ) : (
-                      articles.map((article) => (
+                      articles.map((article: any) => (
                         <div key={article._id} className='article-item'>
                           <div className='article-item-content'>
                             <div className='article-info'>
@@ -51,7 +51,7 @@ export default async function CategoryArticles({ params }: { params: { id: strin
                               <p className='article-date'>{new Date(article.publishedAt).toLocaleDateString('zh-CN')}</p>
                             </div>
                             <div className='article-tags'>
-                                {article.tags && article.tags.length > 0 && article.tags.map((tag) => (
+                                {article.tags && article.tags.length > 0 && article.tags.map((tag: any) => (
                                     <span key={tag._id}>{tag.title}</span>
                                 ))}
                             </div>

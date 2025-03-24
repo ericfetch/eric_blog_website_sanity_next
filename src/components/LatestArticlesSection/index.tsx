@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import ArticleCard from '@/components/ArticleCard';
 import SectionHeader from '@/components/SectionHeader';
 import styles from './index.module.css';

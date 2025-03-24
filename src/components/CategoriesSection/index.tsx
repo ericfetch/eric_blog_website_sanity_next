@@ -26,7 +26,7 @@ export default async function CategoriesSection() {
     <section className={styles.categoriesSection}>
       <div className="container">
         <div className={styles.categoriesGrid}>
-          {categories.map((category) => (
+          {categories.map((category: any) => (
             <CategoryCard 
               key={category._id}
               title={category.title.zh}

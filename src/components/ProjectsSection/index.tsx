@@ -40,7 +40,7 @@ export default async function ProjectsSection() {
           {projects.length === 0 ? (
             <div className={styles.loading}>暂无项目数据</div>
           ) : (
-            projects.map((project, index) => (
+            projects.map((project: any, index: any  ) => (
               <ProjectCard 
                 key={project._id || index}
                 thumbnail={project.thumbnail}

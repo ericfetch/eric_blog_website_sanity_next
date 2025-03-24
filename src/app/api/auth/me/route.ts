@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
     }
     
     // 验证token
-    const payload = verifyToken(token);
+    const payload:any = verifyToken(token);
     if (!payload || !payload.id) {
       return NextResponse.json(
         { message: '无效的token' },
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    const payload = verifyToken(token);
+    const payload:any = verifyToken(token);
     if (!payload || !payload.id) {
       return NextResponse.json(
         { message: '无效的token' },
@@ -187,7 +187,7 @@ export async function DELETE(req: NextRequest) {
       );
     }
     
-    const payload = verifyToken(token);
+    const payload:any = verifyToken(token);
     if (!payload || !payload.id) {
       return NextResponse.json(
         { message: '无效的token' },
@@ -235,7 +235,7 @@ export async function PATCH(req: NextRequest) {
     }
     
     // 验证token
-    const payload = verifyToken(token);
+    const payload:any = verifyToken(token);
     if (!payload || !payload.id) {
       return NextResponse.json(
         { message: '无效的token' },
@@ -252,7 +252,7 @@ export async function PATCH(req: NextRequest) {
     // 过滤只允许更新的字段
     const updates = Object.keys(body)
       .filter(key => allowedFields.includes(key))
-      .reduce((obj, key) => {
+      .reduce((obj: any, key: string) => {
         obj[key] = body[key];
         return obj;
       }, {});

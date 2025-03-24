@@ -13,7 +13,7 @@ const SubscribeSection = () => {
   };
   
   return (
-    <section className="subscribe-section">
+    <div className="subscribe-section">
       <div className="container">
         <div className="subscribe-container">
           <div className="subscribe-content">
@@ -32,7 +32,7 @@ const SubscribeSection = () => {
           </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

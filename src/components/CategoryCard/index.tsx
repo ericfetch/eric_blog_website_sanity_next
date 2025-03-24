@@ -5,7 +5,6 @@ import {
   Notifications, CalendarToday, Book, MusicNote, Movie,
   Photo, Cloud, GetApp, Publish, Search, ArrowForward
 } from '@mui/icons-material';
-import { SvgIconProps } from '@mui/material';
 
 interface CategoryCardProps {
   title: string;
