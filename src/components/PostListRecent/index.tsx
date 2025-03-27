@@ -22,7 +22,7 @@ export default async function PostListRecent() {
         <section className="latest-posts">
             <div className="section-header">
                 <h2>最新发布</h2>
-                <Link href="#" className="more-link">更多 <i className="fas fa-chevron-right"></i></Link>
+                <Link href="/articles/recent" className="more-link">更多 <i className="fas fa-chevron-right"></i></Link>
             </div>
             <div className="posts-list">
                 {
@@ -41,10 +41,10 @@ export default async function PostListRecent() {
                                         <div className="post-tag" key={tag?._id}>{tag.title}</div>
                                     ))}
                                 </div>
-                                <div className="post-stats">
+                                {/* <div className="post-stats">
                                     <span><i className="far fa-eye"></i> 1.2k</span>
                                     <span><i className="far fa-comment"></i> 23</span>
-                                </div>
+                                </div> */}
                             </div>
                         </article>
                     ))

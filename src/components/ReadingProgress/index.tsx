@@ -11,7 +11,7 @@ const ReadingProgress = () => {
     const handleScroll = () => {
         const element = document.querySelector('.article-main');
         if (!element) return;
-        const totalHeight = element.scrollHeight - element.clientHeight;
+        const totalHeight = element.clientHeight;
         const windowScrollTop = window.scrollY;
       
       if (windowScrollTop === 0) {

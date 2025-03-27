@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { client } from '@/sanity/client'; // 假设这是项目中已存在的 Sanity 客户端
 import './index.css';
 
-async function getCategories() {
+async function getStaticProps() {
     const query = `*[_type == "category"] {
         _id,
         title,
     } | order(title asc)`;
-    
+
     try {
         const categories = await client.fetch(query);
         return categories;
@@ -18,7 +18,7 @@ async function getCategories() {
 }
 
 export default async function Footer() {
-    const categories = await getCategories();
+    const categories = await getStaticProps();
 
     return (
         <footer className="footer">
@@ -34,9 +34,7 @@ export default async function Footer() {
                             <li><Link href="/">首页</Link></li>
                             <li><Link href="/articles">文章</Link></li>
                             <li><Link href="/categories">分类</Link></li>
-                            <li><Link href="/about">关于</Link></li>
-                            <li><Link href="/contact">联系</Link></li>
-                        </ul>
+                            <li><Link href="/about">关于</Link></li>                        </ul>
                     </div>
                     <div className="footer-categories">
                         <h3 className="footer-title">文章分类</h3>
@@ -51,16 +49,18 @@ export default async function Footer() {
                         </ul>
                     </div>
                     <div className="footer-subscribe">
-                        <h3 className="footer-title">订阅更新</h3>
-                        <form className="subscribe-form">
-                            <input type="email" placeholder="您的邮箱地址" required />
-                            <button type="submit" className="btn primary-btn">订阅</button>
-                        </form>
+                        <h3 className="footer-title">合作业务</h3>
+                        <ul>
+                            <li>项目开发</li>
+                            <li>技术支持</li>
+                            <li>技术咨询</li>
+                            <li>技术培训</li>
+                        </ul>
                     </div>
                 </div>
 
             </div>
-            <button className="back-to-top"><i className="fas fa-arrow-up"></i></button>
+            
         </footer>
     );
 }

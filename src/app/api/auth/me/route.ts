@@ -32,6 +32,7 @@ export async function GET(req: NextRequest) {
         nickname,
         avatar,
         title,
+        role,
         points,
         browsingHistory[]->{
           _id,
@@ -70,6 +71,7 @@ export async function GET(req: NextRequest) {
         nickname: user.nickname,
         avatar: user.avatar,
         title: user.title,
+        role: user.role,
         points: user.points,
         browsingHistory: user.browsingHistory,
         personalIntro: user.personalIntro,

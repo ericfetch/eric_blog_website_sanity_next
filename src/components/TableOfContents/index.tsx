@@ -1,10 +1,94 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './index.css';
+
+interface TOCItem {
+  id: string;
+  text: string;
+  level: number;
+  children: TOCItem[];
+}
+
 const TableOfContents = () => {
   const [tocCollapsed, setTocCollapsed] = useState(false);
+  const [tocItems, setTocItems] = useState<TOCItem[]>([]);
   
+  // 自动扫描页面上的标题并生成目录
+  useEffect(() => {
+    const article = document.querySelector('article') || document.body;
+    const headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    const items: TOCItem[] = [];
+    
+    headings.forEach((heading) => {
+      // 确保每个标题有id，如果没有则生成一个
+      const id = heading.id || heading.textContent?.toLowerCase().replace(/\s+/g, '-') || `heading-${Math.random().toString(36).substr(2, 9)}`;
+      
+      if (!heading.id) {
+        heading.id = id;
+      }
+      
+      const level = parseInt(heading.tagName.substring(1));
+      const text = heading.textContent || '';
+      
+      const item: TOCItem = {
+        id,
+        text,
+        level,
+        children: [],
+      };
+      
+      // 构建层次结构
+      if (level === 1 || items.length === 0) {
+        items.push(item);
+      } else {
+        let parent = items[items.length - 1];
+        // 寻找合适的父级
+        while (parent.children.length > 0 && parent.level < level - 1) {
+          parent = parent.children[parent.children.length - 1];
+        }
+        
+        if (parent.level === level - 1) {
+          parent.children.push(item);
+        } else {
+          items.push(item);
+        }
+      }
+    });
+    
+    setTocItems(items);
+  }, []);
+  
+  // 渲染目录项及其子项
+  const renderTocItems = (items: TOCItem[]) => {
+    return (
+      <ul className="toc-list">
+        {items.map((item) => (
+          <li key={item.id}>
+            <a 
+              href={`#${item.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById(item.id);
+                if (element) {
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - 50;
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
+                }
+              }}
+            >
+              {item.text}
+            </a>
+            {item.children.length > 0 && renderTocItems(item.children)}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <aside className="article-toc">
       <div className="toc-container">
@@ -19,28 +103,7 @@ const TableOfContents = () => {
         </div>
         {!tocCollapsed && (
           <div className="toc-content">
-            <ul className="toc-list">
-              <li><a href="#introduction">1. 流的基本概念</a></li>
-              <li>
-                <a href="#types">2. 流的类型</a>
-                <ul>
-                  <li><a href="#readable">2.1 可读流</a></li>
-                  <li><a href="#writable">2.2 可写流</a></li>
-                  <li><a href="#duplex">2.3 双工流</a></li>
-                  <li><a href="#transform">2.4 转换流</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#examples">3. 实际应用示例</a>
-                <ul>
-                  <li><a href="#file-processing">3.1 文件处理</a></li>
-                  <li><a href="#http">3.2 HTTP请求处理</a></li>
-                  <li><a href="#data-processing">3.3 数据转换处理</a></li>
-                </ul>
-              </li>
-              <li><a href="#best-practices">4. 最佳实践</a></li>
-              <li><a href="#conclusion">5. 总结</a></li>
-            </ul>
+            {renderTocItems(tocItems)}
           </div>
         )}
       </div>

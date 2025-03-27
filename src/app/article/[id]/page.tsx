@@ -118,6 +118,7 @@ export default async function ArticlePage(props:any) {
           <div className="article-container">
             <article className="article-content">
               <ArticleHeader
+                id={article.category._id}
                 category={article.category?.title?.zh || defaultCategory}
                 title={article.title?.zh || "无标题文章"}
                 author={{
@@ -155,7 +156,7 @@ export default async function ArticlePage(props:any) {
               />
             </article>
 
-            <RelatedArticles
+            {/* <RelatedArticles
               articles={(article.relatedPosts || defaultRelatedPosts).map((post: any) => ({
                 title: post.title.zh || "相关文章",
                 date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('zh-CN') : "未知日期",
@@ -163,12 +164,12 @@ export default async function ArticlePage(props:any) {
                 image: post.mainImage ? urlForImage(post.mainImage).width(300).height(180).url() : "https://via.placeholder.com/300x180",
                 link: `/article/${post._id}`
               }))}
-            />
+            /> */}
 
-            <CommentsSection />
+            {/* <CommentsSection /> */}
           </div>
 
-          <ArticleActions />
+          {/* <ArticleActions /> */}
         </div>
       </main>
 
@@ -181,7 +182,7 @@ export default async function ArticlePage(props:any) {
         />
       )}
 
-      <SubscribeSection />
+      {/* <SubscribeSection /> */}
 
       <ImageViewer
         image={article.mainImage ? urlForImage(article.mainImage).url() : "https://via.placeholder.com/800x450"}

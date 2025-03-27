@@ -32,8 +32,7 @@ export default async function ProjectsSection() {
       <div className="container">
         <SectionHeader 
           title="实战项目专区" 
-          linkText="查看全部" 
-          linkUrl="/projects"
+         
         />
         
         <div className={styles.projectsGrid}>

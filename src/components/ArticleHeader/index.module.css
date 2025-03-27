@@ -33,7 +33,6 @@
 
 .article-meta {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
@@ -68,6 +67,14 @@
 }
 
 .article-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.article-tip {
   display: flex;
   gap: 15px;
   font-size: 0.9rem;

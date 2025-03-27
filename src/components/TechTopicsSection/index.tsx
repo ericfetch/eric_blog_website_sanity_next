@@ -36,8 +36,6 @@ export default async function TechTopicsSection() {
       <div className="container">
         <SectionHeader 
           title="技术专题" 
-          linkText="查看全部" 
-          linkUrl="/topics" 
         />
         
         <div className={styles.topicsGrid}>

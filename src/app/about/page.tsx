@@ -3,11 +3,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Head from '@/components/Head';
-import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/imageUrl';
 import './page.css';
 import PostBody from '@/components/PostBody';
-
+import { Box, CircularProgress } from '@mui/material';
 export default function AboutPage() {
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -19,26 +18,30 @@ export default function AboutPage() {
     message: ''
   });
 
+  const [submitStatus, setSubmitStatus] = useState({
+    loading: false,
+    success: false,
+    error: null
+  });
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const query = `*[_type == "profile"][0]{
-          name,
-          title,
-          introduction,
-          avatar,
-          socialLinks {
-            github,
-            twitter,
-            linkedin,
-            zhihu,
-            weibo
-          },
-          contactEmail
-        }`;
+        const response = await fetch('/api/auth/me');
+        if (!response.ok) {
+          throw new Error('获取用户信息失败');
+        }
         
-        const data = await client.fetch(query);
-        setUserData(data);
+        const data = await response.json();
+        console.log(data);
+        setUserData({
+          name: data.user.nickname || data.user.username,
+          title: data.user.title,
+          introduction: data.user.personalIntro,
+          avatar: data.user.avatar,
+          socialLinks: data.user.socialAccounts || {}, 
+          contactEmail: data.user.email
+        });
       } catch (error) {
         console.error('获取用户信息失败', error);
       } finally {
@@ -54,16 +57,46 @@ export default function AboutPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log('表单提交数据:', formData);
-    alert('消息已发送！');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setSubmitStatus({ loading: true, success: false, error: null });
+    
+    try {
+      const response = await fetch('/api/message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || '提交消息失败');
+      }
+      
+      setSubmitStatus({ loading: false, success: true, error: null });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error: any) {
+      console.error('提交消息失败:', error);
+      setSubmitStatus({ loading: false, success: false, error: error.message });
+    }
   };
 
   if (loading) {
-    return <div>加载中...</div>;
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}>
+        <CircularProgress />
+      </Box>
+    );
   }
+
+
+  console.log(userData);
 
   return (
     <>
@@ -185,17 +218,6 @@ export default function AboutPage() {
                   />
                 </div>
                 
-                <div className="form-group">
-                  <label htmlFor="subject">主题</label>
-                  <input 
-                    type="text" 
-                    id="subject" 
-                    name="subject" 
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    required 
-                  />
-                </div>
                 
                 <div className="form-group">
                   <label htmlFor="message">消息</label>
@@ -209,7 +231,25 @@ export default function AboutPage() {
                   ></textarea>
                 </div>
                 
-                <button type="submit" className="btn primary-btn">发送消息</button>
+                <button 
+                  type="submit" 
+                  className="btn primary-btn"
+                  disabled={submitStatus.loading}
+                >
+                  {submitStatus.loading ? '发送中...' : '发送消息'}
+                </button>
+                
+                {submitStatus.success && (
+                  <div className="form-message success">
+                    消息已成功发送！
+                  </div>
+                )}
+                
+                {submitStatus.error && (
+                  <div className="form-message error">
+                    发送失败：{submitStatus.error}
+                  </div>
+                )}
               </form>
             </div>
           </section>
