@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     SANITY_API_TOKEN: 'skhogvZrQWqpmuYc3bqbbDgbFRBfgWpm3ubK0uYPE3Z3S2rF4292IK0FEWXzEyQjaA4dHHrmBy57Q9UitgIqEAaxsDy1HWBe2dDDv2B6Wo5DKo5DPQDmqz96aTUQl6n1hbNtIV1HJjV01p2mKULpiIDkyJbiTCtkJgTiQj64HW7d087xjg02',
   },
   images: {
-    domains: ['cdn.sanity.io', 'via.placeholder.com'],
+    domains: ['cdn.sanity.io', 'via.placeholder.com','assets.ericengineer.com'],
   },
 };
 

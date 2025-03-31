@@ -2,6 +2,7 @@ import './page.css'
 import Header from '@/components/Head'
 import Footer from '@/components/Footer'
 import { client } from '@/sanity/client'
+import Link from 'next/link'
 
 // 从Sanity获取文章
 async function getArticles() {
@@ -13,7 +14,6 @@ async function getArticles() {
       category->{_id,title},
       tags[]->{_id,title},
       views
-     
     }
   `)
 }
@@ -33,7 +33,7 @@ export default async function Articles() {
                       <p className='no-articles'>目前还没有文章</p>
                     ) : (
                       articles.map((article: any) => (
-                        <div key={article._id} className='article-item'>
+                        <Link key={article._id} href={`/article/${article._id}`} className='article-item'>
                           <div className='article-item-content'>
                             <div className='article-info'>
                               <h2>{article.title.zh}</h2>
@@ -48,7 +48,7 @@ export default async function Articles() {
                                 {article.category && <span>{article.category.title.zh}</span>}
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       ))
                     )}
                 </div>

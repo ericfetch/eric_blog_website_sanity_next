@@ -32,9 +32,9 @@ export default async function Footer() {
                         <h3 className="footer-title">快速链接</h3>
                         <ul>
                             <li><Link href="/">首页</Link></li>
-                            <li><Link href="/articles">文章</Link></li>
-                            <li><Link href="/categories">分类</Link></li>
-                            <li><Link href="/about">关于</Link></li>                        </ul>
+                            <li><Link href="/articles">所有文章</Link></li>
+                            <li><Link href="/categories">所有分类</Link></li>
+                            <li><Link href="/about">关于作者</Link></li>                        </ul>
                     </div>
                     <div className="footer-categories">
                         <h3 className="footer-title">文章分类</h3>

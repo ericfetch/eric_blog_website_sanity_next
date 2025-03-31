@@ -2,6 +2,7 @@ import './page.css'
 import Header from '@/components/Head'
 import Footer from '@/components/Footer'
 import { client } from '@/sanity/client'
+import Link from 'next/link'
 
 // 获取特定分类信息
 async function getCategory(categoryId: string) {
@@ -44,7 +45,7 @@ export default async function CategoryArticles(props: any) {
                       <p className='no-articles'>该分类下暂无文章</p>
                     ) : (
                       articles.map((article: any) => (
-                        <div key={article._id} className='article-item'>
+                        <Link key={article._id} href={`/article/${article._id}`} className='article-item'>
                           <div className='article-item-content'>
                             <div className='article-info'>
                               <h2>{article.title.zh}</h2>
@@ -59,7 +60,7 @@ export default async function CategoryArticles(props: any) {
                                 {article.category && <span>{article.category.title.zh}</span>}
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       ))
                     )}
                 </div>

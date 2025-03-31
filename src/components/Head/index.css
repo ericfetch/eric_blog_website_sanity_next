@@ -54,7 +54,9 @@
 .nav-right {
     display: flex;
     align-items: center;
+    justify-content: right;
     gap: 15px;
+    width: 200px;
 }
 
 .search-btn,
