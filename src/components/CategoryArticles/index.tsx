@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { urlForImage } from '@/sanity/imageUrl';
 import { client } from '@/sanity/client';
 import './index.css'
 
