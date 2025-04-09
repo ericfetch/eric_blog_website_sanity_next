@@ -4,11 +4,8 @@ import TableOfContents from '@/components/TableOfContents';
 import ArticleContent from '@/components/ArticleContent';
 import ArticleTags from '@/components/ArticleTags';
 import ArticleNavigation from '@/components/ArticleNavigation';
-import RelatedArticles from '@/components/RelatedArticles';
-import CommentsSection from '@/components/CommentsSection';
-import ArticleActions from '@/components/ArticleActions';
+
 import SeriesNavigation from '@/components/SeriesNavigation';
-import SubscribeSection from '@/components/SubscribeSection';
 import ImageViewer from '@/components/ImageViewer';
 import SharePopup from '@/components/SharePopup';
 import Head from '@/components/Head';
@@ -17,6 +14,7 @@ import './page.css';
 import { client } from '@/sanity/client';
 import { urlForImage } from '@/sanity/imageUrl';
 import { notFound } from 'next/navigation';
+import CategoryArticles from '@/components/CategoryArticles';
 
 // 添加获取文章数据的函数
 async function getArticle(id: string) {
@@ -113,7 +111,7 @@ export default async function ArticlePage(props:any) {
 
       <main className="article-main" >
         <div className="container article-layout">
-          <TableOfContents />
+        
 
           <div className="article-container">
             <article className="article-content">
@@ -168,7 +166,13 @@ export default async function ArticlePage(props:any) {
 
             {/* <CommentsSection /> */}
           </div>
+          {/* <TableOfContents /> */}
+          <CategoryArticles 
+            categoryId={article.category._id} 
+            categoryTitle={article.category.title?.zh}
+            currentArticleId={id} 
 
+          />
           {/* <ArticleActions /> */}
         </div>
       </main>

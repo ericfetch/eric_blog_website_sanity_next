@@ -57,14 +57,6 @@
   color: var(--text-light);
 }
 
-.article-body code {
-  font-family: 'Fira Code', monospace;
-  background-color: var(--gray-light);
-  color: var(--primary-dark);
-  padding: 3px 6px;
-  border-radius: 4px;
-  font-size: 0.9em;
-}
 
 .code-block {
   margin: 25px 0;
